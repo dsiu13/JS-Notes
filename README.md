@@ -1,1 +1,1 @@
-# JS-BookNotes
+# JS-Notes
