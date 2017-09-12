@@ -36,8 +36,20 @@ var square = function(x) {
 
 # Optional Arguments
 - If you pass too may, any extra arguments are ignored in JS.
-- The downside is that you can acciently pass the wrong number and will not know.
+- The downside is that you can accidentally pass the wrong number and will not know.
 - The upside is that you can use this to have a function take "optional arguments".
 
 # Closures
-- Being able to reference a specific instance of local variables in an enclosing function is called a "closure".
+- A function that "closes over" some local variable is called a "closure".
+- This prevents you from worrying about lifetimes of variables, but allows creative use of function values.
+
+# Recursion
+- A function calling itself is okay, as long as it doesn't overflow the stack. This is called a recursive function.
+
+# Functions and Side Effects
+- Functions can be divided into those that are called for their side effects and those called for their return value.
+- A "pure function" is a specific kind of value-producing function that not only has no side effects but doesn't rely on side effects from other code.
+- A "pure function" will produce the same values with the same arguments.
+
+# Summary
+- Function Keyword, when used as an expression can create a function value. When used as a statement it can be used to declare a variable and give it a function as its value.
