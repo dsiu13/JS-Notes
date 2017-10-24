@@ -1,3 +1,5 @@
+# Program Structure
+
 # Expressions and Statements
 - Fragments of Code that produce a value is called an expression.
 - An expression between parentheses is also an expression, as is a binary operator applied to two expressions or a unary operator.

@@ -1,3 +1,5 @@
+# Values, Types, and Operators
+
 # Numbers
 - JS uses a fixed number of bits "64", to store a single number value.
 - Fractional Numbers are written by using a dot.
