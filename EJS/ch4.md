@@ -25,7 +25,7 @@ var day1 = {
   events:["job", "tv", "gym", "pizza"]
 };
 ````
-- Curly Braces {} have two meaings in Javascript. At the start of a statement they start a block of statements. In any other position they describe an object.
+- Curly Braces {} have two meanings in Javascript. At the start of a statement they start a block of statements. In any other position they describe an object.
 - It is almost never useful to start a statement with a curly-brace obj.
 - In typical programs there is no ambiguity between the two.
 - Property Bindings, are similar to variable bindings. They grasp values, but other variables and properties might be holding onto the same values.
@@ -34,3 +34,16 @@ var day1 = {
 - The difference between setting a property to undef vs deleting it is that in setting to undef the obj still has the the property. With deletion the obj will no longer have the prop and will return false.
 
 # Mutability
+- Obj Values can be modified. Numbers, Strings, Booleans are all Immutable - it is impossible to change an existing value of those types.
+- You can combine them and derive new values from them, but when you take a specific string value that value will always be the same.
+- Obj content can be modified by changing its properties.
+
+# Objects as Maps
+- A Map is a way to go from values in one domain to corresponding values in another domain.
+
+# The Argument Object
+- Whenever a function is called, a special var named "arguments" is added to the environment.
+- Some functions can take any number of arguments. These typically loop over the values in the argument obj.
+
+# The Global Object
+- The Space in which global variables live. Each global var is present as a property of this object.

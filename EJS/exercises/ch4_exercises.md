@@ -4,7 +4,11 @@
 
 ````
 function rangeOne(x,y){
-  var diff = y - x
-    console.log(diff)
+    var numArray = [];
+    for(i=x; i <= y; i++){
+     numArray.push(i)
+    }
+    console.log(numArray)
 }
+rangeOne(1,10)
 ````
