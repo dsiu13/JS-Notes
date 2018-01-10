@@ -1,7 +1,7 @@
 # Minimum
 - Write a function that takes in two arguments and returns the smallest.
 ````
-unction min(x,y){
+function min(x,y){
  if(x < y){
    return x
  } else {
