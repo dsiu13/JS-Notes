@@ -1,6 +1,6 @@
 # Data Structures: Objects and Arrays
 - Numbers, Booleans, and Strings are how Data Structures are built.
-- Objs allow us to group values, including other objs allowing for more complex structures.
+- Objectss allow us to group values, including other objects allowing for more complex structures.
 
 # Data Sets
 - We can use a string to represent machine memory, since strings can be any length.
@@ -14,17 +14,19 @@
 - Elements in an Array are stored in Properties.
 
 # Methods
-- Both String and Array Objs contain a number of properties that refer to function values.
+- Both String and Array Objects contain a number of properties that refer to function values.
 - Properties that contian functions are generally called "methods" of the value they belong to.
 
 # Objects
 - Values of the type Object are arbitrary collections of properties, that can be added or removed.
+
 ````
 var day1 = {
   weresquirrel: false,
   events:["job", "tv", "gym", "pizza"]
 };
 ````
+
 - Curly Braces {} have two meanings in Javascript. At the start of a statement they start a block of statements. In any other position they describe an object.
 - It is almost never useful to start a statement with a curly-brace obj.
 - In typical programs there is no ambiguity between the two.
