@@ -15,7 +15,7 @@
 
 # Methods
 - Both String and Array Objects contain a number of properties that refer to function values.
-- Properties that contian functions are generally called "methods" of the value they belong to.
+- Properties that contain functions are generally called "methods" of the value they belong to.
 
 # Objects
 - Values of the type Object are arbitrary collections of properties, that can be added or removed.
