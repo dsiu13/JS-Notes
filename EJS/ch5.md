@@ -91,3 +91,69 @@ repeat(3, n => {
 // → 0 is even
 // → 2 is even
 ````
+
+# Script Data Set
+````
+{
+  name: "Coptic",
+  ranges: [[994, 1008], [11392, 11508], [11513, 11520]],
+  direction: "ltr",
+  year: -200,
+  living: false,
+  link: "https://en.wikipedia.org/wiki/Coptic_alphabet"
+}
+````
+- the object tells you the name, & unicode char ranges.
+- The ranges prop contains an array of unicode char ranges with a lower and upper bound.
+
+# Filtering Arrays
+````
+function filter(array, test) {
+  let passed = [];
+  for (let element of array) {
+    if (test(element)) {
+      passed.push(element);
+    }
+  }
+  return passed;
+}
+
+console.log(filter(SCRIPTS, script => script.living));
+// → [{name: "Adlam", …}, …]
+````
+- Function uses argument named "test", a function value to fill a "gap" in the computation
+- The filter function builds a new array with only elements that pass the test instead of deleting them. This function is "Pure", it does not modify the given array.
+
+# Transforming with Maps
+- We have an array of objects representing scripts, produced by filtering the SCRIPTS array somehow.
+- The MAP method transforms an array by applying a function to all of its elements and building a new array from the return values.
+
+````
+function map(array, transform) {
+  let mapped = [];
+  for (let element of array) {
+    mapped.push(transform(element));
+  }
+  return mapped;
+}
+
+let rtlScripts = SCRIPTS.filter(s => s.direction == "rtl");
+console.log(map(rtlScripts, s => s.name));
+// → ["Adlam", "Arabic", "Imperial Aramaic", …]
+````
+
+# Summarzing with Reduce
+- Reduce sometimes called fold, it builds a value by repeatedly taking a single element from the array and combining it with the previous value.
+- The parameters for reduce are a combining function and a start value.
+````
+function reduce(array, combine, start) {
+  let current = start;
+  for (let element of array) {
+    current = combine(current, element);
+  }
+  return current;
+}
+
+console.log(reduce([1, 2, 3, 4], (a, b) => a + b, 0));
+// → 10
+````
