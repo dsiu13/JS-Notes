@@ -37,3 +37,19 @@ whiteRabbit.speak("Oh my ears and whiskers, " +
 hungryRabbit.speak("I could use a carrot right now.");
 // → The hungry rabbit says 'I could use a carrot right now.'
 ````
+- 'this' is an extra parameter that is passed a different way. You can pass 'this' explicitly via call method.
+
+````
+speak.call(hungryRabbit, "Burp!");
+// → The hungry rabbit says 'Burp!'
+````
+- Since each function has its own 'this' binding whose value is dependent on the way its called, you cannot refer to 'this' of the wrapping scope in a regular function defined with the 'function' keyword
+- Arrow functions are different - they do not bind their own 'this', but can see 'this' binding of the scope around them.
+
+````
+function normalize() {
+  console.log(this.coords.map(n => n / this.length));
+}
+normalize.call({coords: [0, 2, 3], length: 5});
+// → [0, 0.4, 0.6]
+````
