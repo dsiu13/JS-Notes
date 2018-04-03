@@ -216,7 +216,7 @@ console.log(blackRabbit[sym]);
 ````
 - The string you pass to Symbol is included when you convert it to a string, and can make it easier to recognize a symbol. Being both unique and useable as a property name makes symbols suitable for a defining interfaces that can peacefully live alongside other properties, regardless of name.
 ````
-const toStringSymbol = Symbol("toString");
+const toStringSymbol = Symb ol("toString");
 Array.prototype[toStringSymbol] = function() {
   return `${this.length} cm of blue yarn`;
 };
@@ -234,3 +234,163 @@ let stringObject = {
 console.log(stringObject[toStringSymbol]());
 // → a jute rope
 ````
+
+# The Iterator interface
+- The object given to a for/of loop is expected to be iterable. It has a method named with the Symbol.iterator symbol.
+````
+class Matrix {
+  constructor(width, height, content = (x, y) => undefined) {
+    this.width = width;
+    this.height = height;
+    this.content = [];
+
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        this.content[y * width + x] = content(x, y);
+      }
+    }
+  }
+
+  get(x, y) {
+    return this.content[y * this.width + x];
+  }
+  set(x, y, value) {
+    this.content[y * this.width + x] = value;
+  }
+}
+````
+- The class stores its content in a single array of width x height elements. The elements are stored row-by-row.
+- The constructor function takes a width, height, and an optional content function that will be used to fill in the initial values. There are 'get' and 'set' methods to retrieve and update elements within the matrix.
+- When looping over the matrix you are usually interested in the position of the elements as well as the elements itself.
+````
+class MatrixIterator {
+  constructor(matrix) {
+    this.x = 0;
+    this.y = 0;
+    this.matrix = matrix;
+  }
+
+  next() {
+    if (this.y == this.matrix.height) return {done: true};
+
+    let value = {x: this.x,
+                 y: this.y,
+                 value: this.matrix.get(this.x, this.y)};
+    this.x++;
+    if (this.x == this.matrix.width) {
+      this.x = 0;
+      this.y++;
+    }
+    return {value, done: false};
+  }
+}
+````
+- The class tracks the progress of iterating over a matrix in its x and y properties. The 'next' method starts by checking whether the bottom of the matrix has been reached.
+````
+let matrix = new Matrix(2, 2, (x, y) => `value ${x},${y}`);
+for (let {x, y, value} of matrix) {
+  console.log(x, y, value);
+}
+// → 0 0 value 0,0
+// → 1 0 value 1,0
+// → 0 1 value 0,1
+// → 1 1 value 1,1
+````
+
+# Getters, Setters, and Statics
+- Interfaces often consist mostly of methods, but it is okay to include properties that hold non-function values.
+- Map objects have the 'size' property that tell you how many keys are stored in it.
+- Even properties that are accessed directly may hide a method call.
+- Such methods are called 'getters' and they are defined by writing 'get' in front of the method name in an obj expression or class declaration.
+````
+let varyingSize = {
+  get size() {
+    return Math.floor(Math.random() * 100);
+  }
+};
+
+console.log(varyingSize.size);
+// → 73
+console.log(varyingSize.size);
+// → 49
+````
+- when you read from this object's size property, the associated method is called. You can do a similar thing when a property is written to using a 'setter'.
+````
+class Temperature {
+  constructor(celsius) {
+    this.celsius = celsius;
+  }
+  get fahrenheit() {
+    return this.celsius * 1.8 + 32;
+  }
+  set fahrenheit(value) {
+    this.celsius = (value - 32) / 1.8;
+  }
+
+  static fromFahrenheit(value) {
+    return new Temperature((value - 32) / 1.8);
+  }
+}
+
+let temp = new Temperature(22);
+console.log(temp.fahrenheit);
+// → 71.6
+temp.fahrenheit = 86;
+console.log(temp.celsius);
+// → 30
+````
+- Inside a class declaration, methods that have static written before their name are stored on the constructor.
+
+# Inheritance
+- Some matrices are known to be symmetric. If you mirror a symmetric matrix around its top-left to bottom-right diagonal, it stays the same.
+- Javascript's prototype obj makes it possible to create a new class, but with new definitions for some of its properties. In object oriented programming terms, this is called inheritance. The new class inherits properties and behaviors from the old class.
+````
+class SymmetricMatrix extends Matrix {
+  constructor(size, content = (x, y) => undefined) {
+    super(size, size, (x, y) => {
+      if (x < y) return content(y, x);
+      else return content(x, y);
+    });
+  }
+
+  set(x, y, value) {
+    super.set(x, y, value);
+    if (x != y) {
+      super.set(y, x, value);
+    }
+  }
+}
+
+let matrix = new SymmetricMatrix(5, (x, y) => `${x},${y}`);
+console.log(matrix.get(2, 3));
+// → 3,2
+````
+- The use of the word 'extends' indicates the constructor calls its superclass' constructor through the 'super' keyword.
+- Inheritance allows us to build slightly different data types from existing data types with ease.
+- Encapsulation and Polymorphism can be used to separate pieces of code from each other, reducing the tangledness of the program. Inheritance ties classes together.
+
+# Instanceof operator
+- Javascript provides the instanceof operator to know whether an object was derived from a specific class.
+````
+console.log(
+  new SymmetricMatrix(2) instanceof SymmetricMatrix);
+// → true
+console.log(new SymmetricMatrix(2) instanceof Matrix);
+// → true
+console.log(new Matrix(2, 2) instanceof SymmetricMatrix);
+// → false
+console.log([1] instanceof Array);
+// → true
+````
+- Almost every object is an instance of Object.
+
+# Summary
+- Objects do more than hold their own properties. They have prototypes, which are other objects.
+- Simple objects have Object.prototype as their prototype.
+- Constructors, are functions whose name start with a capital letter. They are used to with the 'new' operator to create new objects. The new object's prototype will be the object found in the prototype property of the constructor.
+- You can define 'getters' and 'setters' to secretly call methods every time an object's property is accessed. 
+- Static methods stored in a class' constructor rather than its prototype.
+- The instanceof operator can, given an object and a constructor, tell you whether that object is an instance of that constructor.
+- One useful thing to do with objects is to specify an interface for them and tell everybody that they are supposed to talk to your object only through that interface. The rest of the details that make up your object are now encapsulated, hidden behind the interface.
+- More than one type may implement the same interface. Code written to use an interface automatically knows how to work with any number of different objects that provide the interface. This is called polymorphism.
+- When implementing multiple classes that differ in only some details, it can be helpful to write the new classes as subclass of an existing class, inheriting part of its behavior.
