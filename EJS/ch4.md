@@ -1,6 +1,6 @@
 # Data Structures: Objects and Arrays
 - Numbers, Booleans, and Strings are how Data Structures are built.
-- Objectss allow us to group values, including other objects allowing for more complex structures.
+- Objects allow us to group values, including other objects allowing for more complex structures.
 
 # Data Sets
 - We can use a string to represent machine memory, since strings can be any length.
