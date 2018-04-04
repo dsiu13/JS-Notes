@@ -5,17 +5,12 @@
 let arrays = [[1, 2, 3], [4, 5], [6]];
 // Your code here.
 // → [1, 2, 3, 4, 5, 6]
-````
 
-````
 let arrays = [[1, 2, 3], [4, 5], [6]];
 
 var concatArray = arrays[0].concat(arrays[1], arrays[2])
 console.log(concatArray)
 
-function reduce(array, combine, start) {
-
-}
 ````
 
 
@@ -58,9 +53,9 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
 function every(array, test) {
   var total = array.reduce(reducer)
-  if(total < test){
+  if(total < test) {
     return true
-  } else{
+  } else {
     return false
   }
 }
@@ -81,28 +76,13 @@ console.log(every([], n => n < 10));
 ````
 function characterScript(code) {
   for (let script of SCRIPTS) {
-    if (script.ranges.some(([from, to]) => {
-      return code >= from && code < to;
-    })) {
+    if (script.ranges.some(([from, to]) => code >= from &&
+                                           code < to)) {
       return script;
     }
   }
   return null;
-};
-
-function countBy(items, groupName) {
-  let counts = [];
-  for (let item of items) {
-    let name = groupName(item);
-    let known = counts.findIndex(c => c.name == name);
-    if (known == -1) {
-      counts.push({name, count: 1});
-    } else {
-      counts[known].count++;
-    }
-  }
-  return counts;
-};
+}
 
 function countBy(items, groupName) {
   let counts = [];
@@ -141,4 +121,8 @@ console.log(dominantDirection("Hello!"));
 // → ltr
 console.log(dominantDirection("Hey, مساء الخير"));
 // → rtl
+console.log(dominantDirection(""));
+// → no dominant direction found
+console.log(dominantDirection("Heyخير"));
+// → no dominant direction found
 ````
