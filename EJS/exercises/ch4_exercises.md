@@ -66,37 +66,15 @@ function reverseArrayInPlace (array) {
 // Your code here.
 
 function arrayToList(array){
+  var list = null;
 
-  class LinkedList {
-    constructor(val) {
-      this.head = null;
-      this.length = 0;
-      this.addToHead(val);
-      };
-
-      addToHead(val) {
-        const newNode = {val}
-        newNode.next = this.head;
-        this.head = newNode;
-        this.length++
-        return this;
-      }
+  for(i=0; i > array.length - 1; i++){
+    list = {
+      value: array[i].
+      rest: list;
     }
-
-    removeFromHead() {
-      if (this.length === 0) {
-        return undefined;
-      }
-
-    const val = this.head.val;
-    this.head = this.head.next;
-    this.length--;
-
-    return val;
-
-    }
-
-
+    return list;
+  }
 };
 
 console.log(arrayToList([10, 20]));
@@ -107,4 +85,8 @@ console.log(prepend(10, prepend(20, null)));
 // → {value: 10, rest: {value: 20, rest: null}}
 console.log(nth(arrayToList([10, 20, 30]), 1));
 // → 20
+
+Spread operator as arg for array
+else if checking if head exists?
+
 ```

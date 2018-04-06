@@ -31,6 +31,14 @@
 - Strings can be compared based on Unicode Standard.
 - Only One Value in JS that is not equal to itself - NaN
 
+# Comparison
+- Greater than, and less than are binary operators.
+- Strings are ordered roughly in alphabetical order.
+- However uppercase letters are always "less" than lowercase ones.
+- nonalphabetic characters are also in the ordering.
+- When JS compares strings it goes left to right, comparing the unicode one by one.
+- Only one operator that is not equal to itself - NaN
+
 # Logical Operators
 - && is a Binary Operator and Represents Logical "and"
 - ! is a Unary Operator and flips the value of the given value.
@@ -39,12 +47,12 @@
 - Ternary Operators, console.log( true ? 1 : 2); -> 1
 - Also called a Conditional Operator. The value left of the question mark "picks" what other two values will come out. When true the middle is chosen, when false, the value on the right is chosen.
 
-# Undefined values
+# Empty Values
 - Null and Undefined are used to denote the absence of a meaningful value.
-- Null means an assigned Value of Null
+- Null means an assigned Value of "Null"
 - Undefined, no value has been assigned
 
-# JS Type Conversion
+# Automatic Type Conversion
 - If an operator is applied to the "wrong" type of value, JS will try to convert that value to the type it wants, based on a set of rules. This is called "type coercion"
 - 0, "", NaN, are always False.
 - Type Coercion does not occur with === or !==
@@ -52,4 +60,4 @@
 # Short-Circuiting of Logical Operators
 - || and && convert the value on the left side to a Boolean type in order to decide what to do.
 - This functionality allows it to fall back to a default value.
-- The expression to their right is evaluted only when needed. This is called short-circuit evalution.
+- The expression to their right is evaluated only when needed. This is called short-circuit evaluation.
