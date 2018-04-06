@@ -1,4 +1,4 @@
-# Higher-Order functions
+# Higher-Order Functions
 - Two ways of constructing a software design: simple or complex
 
 ````
@@ -15,7 +15,7 @@ console.log(total);
 console.log(sum(range(1,10)));
 ````
 
-- 2nd is more likely to be correct because summing a range of numvers isn't about loops and counters. its about ranges and sums
+- 2nd is more likely to be correct because summing a range of numbers isn't about loops and counters. its about ranges and sums
 
 # Abstraction
 - These kinds of vocabularies are usually called "abstraction"

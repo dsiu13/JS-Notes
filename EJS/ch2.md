@@ -57,15 +57,27 @@ throw true try typeof var void while with yield
 # Indentation
 - Not needed, but makes code cleaner and easier to read.
 
+# Updating Bindings Succinctly
+- A program often needs to "update" a binding to hold a value based on that binding's previous value.
+```
+counter = counter + 1;
+
+for ( let num = 0; num <= 12; number +=2) {
+  console.log(num)
+}
+
+```
+
 # Switch
-- A construct that is intended to solve such a dispatch.
+- A Switch is a construct that is intended to solve such a dispatch.
 ````
 if (variable == "value1") action1();
 else if (variable == "value2") action2();
 else if (variable == "value3") action3();
 else defaultAction();
 ````
-
+- You may put any number of 'case' labels inside the block opened by the switch.
+- The switch will execute at the label that corresponds to the given value or the default if one was not given.
 ````
 switch (prompt("What is the weather like?")) {
   case "rainy":
@@ -81,3 +93,14 @@ switch (prompt("What is the weather like?")) {
     break;
 }
 ````
+# Capitalization
+- Binding names may not contain spaces.
+- Standard is fuzzyLittleTurtle.
+- Only constructor functions have a first letter capitalized
+
+# Summary
+- Statements one after another are executed from top to bottom.
+- You can introduce disturbances in the flow of control by using conditionals(if, else, and switch) and looping(for, do, and while) statements.
+- Bindings can be used to file pieces of data under a name, and are useful for tracking state.
+- The environment is the set of bindings that are defined.
+- Function are special values that encapsulate a piece of program.

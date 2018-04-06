@@ -23,7 +23,7 @@ var square = function(x) {
 - Functions can be created within other functions, producing degrees of locality.
 - Functions are the only things that create a new scope. You can use free-standing blocks
 
-# Functions as values
+# Functions as Values
 - Function Variables simply act as names for a specific piece of the program.
 - A function value can do all the things other values can do, it is possible to store a function in a new place, pass it as an argument. A variable that holds a function can be assigned a new value.
 
