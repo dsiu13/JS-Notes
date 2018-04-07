@@ -86,7 +86,7 @@ var orders = [
 ]
 
 var totalAmount = totalAmount = orders.reduce(function(sum){
-
-  })
+  return sum + order.amount
+  }, 0)
 
 ```

@@ -1,3 +1,4 @@
+["A", "B"].forEach(l => console.log(l));
 # Higher-Order Functions
 - Two ways of constructing a software design: simple or complex
 
@@ -91,7 +92,11 @@ repeat(3, n => {
 // → 0 is even
 // → 2 is even
 ````
+# forEach
+```
+["A", "B"].forEach(l => console.log(l));
 
+```
 # Script Data Set
 ````
 {
@@ -142,7 +147,7 @@ console.log(map(rtlScripts, s => s.name));
 // → ["Adlam", "Arabic", "Imperial Aramaic", …]
 ````
 
-# Summarzing with Reduce
+# Summarizing with Reduce
 - Reduce sometimes called fold, it builds a value by repeatedly taking a single element from the array and combining it with the previous value.
 - The parameters for reduce are a combining function and a start value.
 ````
