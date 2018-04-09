@@ -7,10 +7,10 @@
 - Different parts of a program interact with each other through interfaces(limited sets of functions or bindings that provide functionality at an abstract level)
 - Many languages provide a way to distinguish public and private properties.
 - It is common to add an underscore character at the start of a property that is private.
-- Separating interface from implementation and is called Encapsulation.
+- Separating interface from implementation is called Encapsulation.
 
 # Methods
-- Methods are properties that hold function values.
+- Methods are properties that hold function values. Simple method below
 ````
 let rabbit = {};
 
@@ -21,7 +21,8 @@ rabbit.speak = function(line) {
 rabbit.speak("I'm Alive.")
 // → The rabbit says 'I'm alive.'
 ````
-- Methods need to do something with the object it was called on. When a function is called as a method - looked up as a property and immediately called, as in object.method(), the binding 'this' in its body automatically points at the obj that it was called on.
+- Methods need to do something with the object it was called on.
+- When a function is called as a method it is looked up as a property and immediately called, as in object.method(), the binding 'this' in its body automatically points at the obj that it was called on.
 
 ````
 function speak(line) {
@@ -388,7 +389,7 @@ console.log([1] instanceof Array);
 - Objects do more than hold their own properties. They have prototypes, which are other objects.
 - Simple objects have Object.prototype as their prototype.
 - Constructors, are functions whose name start with a capital letter. They are used to with the 'new' operator to create new objects. The new object's prototype will be the object found in the prototype property of the constructor.
-- You can define 'getters' and 'setters' to secretly call methods every time an object's property is accessed. 
+- You can define 'getters' and 'setters' to secretly call methods every time an object's property is accessed.
 - Static methods stored in a class' constructor rather than its prototype.
 - The instanceof operator can, given an object and a constructor, tell you whether that object is an instance of that constructor.
 - One useful thing to do with objects is to specify an interface for them and tell everybody that they are supposed to talk to your object only through that interface. The rest of the details that make up your object are now encapsulated, hidden behind the interface.
