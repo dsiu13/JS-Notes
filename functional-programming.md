@@ -1,4 +1,4 @@
-# Part 1 - Higher Order Functions
+# Higher Order Functions
 - Functions are values.
 - They can be assigned to variables or passed to other functions(Higher Order Functions)
 

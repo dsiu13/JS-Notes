@@ -1,4 +1,3 @@
-["A", "B"].forEach(l => console.log(l));
 # Higher-Order Functions
 - Two ways of constructing a software design: simple or complex
 
