@@ -173,3 +173,11 @@ outer();
 ```
 
 - Lexical scope rules say that code in one scope can access variables of either that scope or any scope outside of it. The code inside the inner() function has access to both variables a and b, but code in outer() has access only to a -- it cannot access b because that variable is only inside inner().
+
+## Review
+- You need operators to perform actions on values.
+- You need values and types to perform different kinds of actions like math on numbers or output with strings.
+- You need variables to store data (aka state) during your program's execution.
+- You need conditionals like if statements to make decisions.
+- You need loops to repeat tasks until a condition stops being true.
+- You need functions to organize your code into logical and reusable chunks.
