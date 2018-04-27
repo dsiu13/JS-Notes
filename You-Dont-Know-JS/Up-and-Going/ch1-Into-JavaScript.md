@@ -154,3 +154,190 @@ b;				// 42 -- the number!
 - ==, ===, !==, !=, are equality operators.
 - The difference between == and === is that == checks for value equality while ===
 checks for both, value and type.
+```
+var a = "42";
+var b = 42;
+
+a == b;			// true
+a === b;		// false
+```
+- In the a == b, JS sees there is no type match. It goes through an ordered series of steps to coerce one or both values, until both match.
+- The a === b produces false, because coercion is not allowed.
+
+## Inequality
+- <, >, <=, >= are operators for inequality, also known as relational comparison
+- JS string values can also be compared for inequality
+```
+var a = 41;
+var b = "42";
+var c = "43";
+
+a < b;		// true
+b < c;		// true
+
+```
+
+# Variables
+- In JavaScript, variable names must be valid identifiers.
+- An identifier must start with a-z, A-Z, $, or _
+- The same rules apply to a property name as to a variable identifier. Certain words cannot be used as variables, but are OK as property names. These are called "reserved words," and include the JS keywords.
+
+## Function Scopes
+- 'Var' lets you declare a variable that will belong to the current function scope or global if outside any function.
+
+## Hoisting
+- When a var appears inside a scope, that declaration is taken to belong to the entire scope and can be used everywhere throughout. This is called Hoisting.
+- when a var declaration is conceptually "moved" to the top of its enclosing scope. This process is more accurately explained by how code is compiled.
+```
+var a = 2;
+
+foo();					// works because `foo()`
+						// declaration is "hoisted"
+
+function foo() {
+	a = 3;
+
+	console.log( a );	// 3
+
+	var a;				// declaration is "hoisted"
+						// to the top of `foo()`
+}
+
+console.log( a );	// 2
+```
+- It's much more common and accepted to use hoisted function declarations.
+
+## Nested Scopes
+```
+function foo() {
+	var a = 1;
+
+	function bar() {
+		var b = 2;
+
+		function baz() {
+			var c = 3;
+
+			console.log( a, b, c );	// 1 2 3
+		}
+
+		baz();
+		console.log( a, b );		// 1 2
+	}
+
+	bar();
+	console.log( a );				// 1
+}
+
+foo();
+
+```
+- 'c' is not available inside of bar(), because its declared only inside the inner baz() scope
+- Accessing a variable in a scope where its not available will throw 'ReferenceError'
+- Setting a variable that hasn't been declared, will either create a variable in the top-level global scope (bad!) or throw an error, depending on "strict mode"
+
+### Don't do this. Bad Practice.
+- Always formally declare your variables
+```
+function foo() {
+	a = 1;	// `a` not formally declared
+}
+
+foo();
+a;			// 1 -- oops, auto global variable :(
+
+```
+
+- ES6 lets you declare variables that belong to individual blocks. Using the 'lets' keyword.
+```
+function foo() {
+	var a = 1;
+
+	if (a >= 1) {
+		let b = 2;
+
+		while (b < 5) {
+			let c = b * 2;
+			b++;
+
+			console.log( a + c );
+		}
+	}
+}
+
+foo();
+// 5 7 9
+
+```
+- By using 'let' instead of 'var', var b will belong only to the if statement and not the whole foo() function scope.
+- var c belongs only to the while loop.
+- Block scoping is useful for managing your variable scopes.
+
+# Conditionals
+
+## Else if
+```
+if (a == 2) {
+	// do something
+}
+else if (a == 10) {
+	// do another thing
+}
+else if (a == 42) {
+	// do yet another thing
+}
+else {
+	// fallback to here
+}
+
+```
+## Switch Case
+```
+switch (a) {
+	case 2:
+		// do something
+		break;
+	case 10:
+		// do another thing
+		break;
+	case 42:
+		// do yet another thing
+		break;
+	default:
+		// fallback to here
+}
+
+```
+- break is important if you want only the statement(s) in one case to run. Omitting break from a case, means that if the case matches or runs, execution will continue with the next case's statements regardless of that case matching.
+
+```
+switch (a) {
+	case 2:
+	case 10:
+		// some cool stuff
+		break;
+	case 42:
+		// other stuff
+		break;
+	default:
+		// fallback
+}
+```
+- If 'a' is either 2 or 10, the code will execute.
+
+## Ternary Operator or Conditional Operator
+```
+var a = 42;
+
+var b = (a > 41) ? "hello" : "world";
+
+// similar to:
+
+// if (a > 41) {
+//    b = "hello";
+// }
+// else {
+//    b = "world";
+// }
+
+```
