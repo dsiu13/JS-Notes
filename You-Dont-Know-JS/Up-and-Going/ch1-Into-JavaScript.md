@@ -341,3 +341,149 @@ var b = (a > 41) ? "hello" : "world";
 // }
 
 ```
+- The conditional operator doesn't have to be used in an assignment, but that's definitely the most common usage.
+
+## Strict Mode
+- ES6 added strict mode, which tightens the rules for certain behaviors.
+- You can use strict mode for an individual function.
+```
+function foo() {
+	"use strict";
+
+	// this code is strict mode
+
+	function bar() {
+		// this code is strict mode
+	}
+}
+
+// this code is not strict mode
+```
+
+```
+"use strict";
+
+function foo() {j
+	// this code is strict mode
+
+	function bar() {
+		// this code is strict mode
+	}
+}
+
+// this code is strict mode
+```
+- One key difference (improvement!) with strict mode is disallowing the implicit auto-global variable declaration from omitting the var
+
+```
+function foo() {
+	"use strict";	// turn on strict mode
+	a = 1;			// `var` missing, ReferenceError
+}
+
+foo();
+
+```
+
+## Functions as Values
+- Functions themselves can be values, and passed to or returned from other functions.
+- A function value should be thought of as an expression, much like any other value or expression
+```
+var foo = function() {
+	// Code
+};
+
+var x = function bar(){
+	// Code
+};
+
+```
+- The first function expression assigned to foo variable is an 'anonymous' because it has no 'name'
+- The second expression is named 'bar', referenced as x. Named expression are preferable, thought anon function are common.
+
+## Immediately Invoked Function Expressions(IIFEs)
+- Functions need to be invoked for them to executed. Another way to execute a function expression is IIFE.
+```
+(function IIFE(){
+	console.log( "Hello!" );
+})();
+// "Hello!"
+
+```
+
+- The outer parenthesis that surround the function is a nuance of JS grammar needed to prevent it from being treated as normal function declaration.
+- The final (), is what invokes the function.
+```
+function foo() { .. }
+
+// `foo` function reference expression,
+// then `()` executes it
+foo();
+
+// `IIFE` function expression,
+// then `()` executes it
+(function IIFE(){ .. })();
+
+```
+
+- Because an IIFE is just a function, and functions create variable scope, using an IIFE in this fashion is often used to declare variables that won't affect the surrounding code outside the IIFE
+```
+var a = 42;
+
+(function IIFE(){
+	var a = 10;
+	console.log( a );	// 10
+})();
+
+console.log( a );		// 42
+
+```
+
+- IFFE can also have return Values
+```
+var x = (function IIFE(){
+	return 42;
+})();
+
+x;	// 42
+
+```
+
+## Closures
+- Closure is a way to 'remember' and continue to access a function's scope(its variables) even once its finished running
+
+```
+function makeAdder(x) {
+	// parameter `x` is an inner variable
+
+	// inner function `add()` uses `x`, so
+	// it has a "closure" over it
+	function add(y) {
+		return y + x;
+	};
+
+	return add;
+}
+
+```
+
+- The reference to the inner add(..) function that gets returned with each call to the outer makeAdder(..) is able to remember whatever x value was passed in to makeAdder(..).
+
+```
+// `plusOne` gets a reference to the inner `add(..)`
+// function with closure over the `x` parameter of
+// the outer `makeAdder(..)`
+var plusOne = makeAdder( 1 );
+
+// `plusTen` gets a reference to the inner `add(..)`
+// function with closure over the `x` parameter of
+// the outer `makeAdder(..)`
+var plusTen = makeAdder( 10 );
+
+plusOne( 3 );		// 4  <-- 1 + 3
+plusOne( 41 );		// 42 <-- 1 + 41
+
+plusTen( 13 );		// 23 <-- 10 + 13
+```
+
+-
