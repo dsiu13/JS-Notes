@@ -486,4 +486,80 @@ plusOne( 41 );		// 42 <-- 1 + 41
 plusTen( 13 );		// 23 <-- 10 + 13
 ```
 
+- This works by making a call to 'makeAdder(1)', and we get back a reference to its inner add(..) that remembers x as 1. We call this function reference plusOnce(..)
+- The call to makeAdder(10), we get back another reference to its inner add(..) that remembers x as 10. We call this function reference plusTen(..)
+- When we call plusOne(3), it adds 3(its inner y) to the 1 (remembered by x), and we get 4 as the result.
+- When we call plusTen(13) (its inner y) to the 10 (remembered by x), and we get 23.
+
+## Modules
+- Most common use of closure in JavaScript in the module pattern. Modules let you define private implementation details(variable, functions) that are hidden from the outside world, as well as a public API.
+
+```
+function User(){
+  var username, password;
+
+  function doLogin(user,pw) {
+    username = user;
+    password = pw;
+
+    // login stuff
+  }
+
+  var publicAPI = {
+    login: doLogin
+  };
+
+  return publicAPI;
+
+}
+
+var fred = User();
+
+fred.login("fred", "12battery34!");
+
+```
+
+- User() function serves as an outer scope that holds the variables 'username' and 'password', as well as the inner doLogin() function;
+- These are all private inner details of this 'User' module that cannot be accessed from the outside world.
+- We are not calling 'new User()' here, User() is just a function, not a class to be instantiated.
+- User() creates an instance of the 'User' module. A whole new scope is created and a new copy of each inner variable and functions. We assign this instance to 'fred'. If we run the User() function again we'd get a new and separate instance of 'fred'.
+- The inner 'doLogin()' function has a closure over username and password. It will retain its access to them even after User() finishes executing.
+- publicAPI is an object with one property/method on it 'login'. Which is reference to the inner doLogin() function. Returning publicAPI from User() it becomes the instance 'fred'.
+- By now the outer User() has finished running. The inner variables password and username haven't gone away because of the closure in login()
+
+## This Identifier
+- If a function has a 'this' reference inside it, that 'this' reference usually points to an object. Which object it points to depends on how the function was called.
+- 'this' does not refer to the function itself.
+```
+function foo() {
+  console.log(this.bar);
+}
+
+var bar = "global";
+
+var obj1 = {
+  bar: "obj1",
+  foo: foo
+};
+
+var obj2 = {
+  var: "obj2"
+};
+
+foo();				// "global"
+obj1.foo();			// "obj1"
+foo.call( obj2 );		// "obj2"
+new foo();			// undefined
+
+```
+
+- There are four rules for how 'this' gets set.
+- In order to understand what 'this' points to you have to see how the function in question was called.
+1. foo() ends up setting 'this' to the global object in non-strict. 'this' would be undefined in strict mode and you'd get undefined.
+2. obj1.foo() sets 'this' to the 'obj1 'object.
+3. foo.call(obj2) sets 'this' to the 'obj2' object.
+4. new foo() sets 'this' to a brand new empty object.
+
+
+## Prototypes
 -
