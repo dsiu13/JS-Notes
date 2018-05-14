@@ -562,4 +562,76 @@ new foo();			// undefined
 
 
 ## Prototypes
--
+- When you reference a property on an object, if that property doesn't exist, JavaScript will automatically use that object's internal prototype reference to find another object to look for the property on.
+- The internal prototype reference linkage from one object to its fallback happens at the time the object is created. The simplest way to illustrate it is with a built-in utility called Object.create(..).
+```
+var foo = {
+	a: 42
+};
+
+// create `bar` and link it to `foo`
+var bar = Object.create( foo );
+
+bar.b = "hello world";
+
+bar.b;		// "hello world"
+bar.a;		// 42 <-- delegated to `foo`
+
+```
+
+- The 'a' property doesn't actually exist on the bar object, but because bar is a prototype-linked to 'foo'. JavaScript automatically falls back to looking for 'a' on the foo object.
+- This linkage may seem like a strange feature of the language. The most common way this feature is used is to try to emulate/fake a "class" mechanism with "inheritance."
+- A more natural way of applying prototypes is a pattern called "behavior delegation," where you design your linked objects to be able to delegate from one to the other for parts of the needed behavior.
+
+## Old & New
+- There are two ways to bring newer javascript stuff to older browsers: Polyfilling or transpiling.
+
+## Polyfilling
+- Taking the definition of a newer feature and producing a piece of code that's equivalent to the behavior but is able to run in older JS environments.
+- Example: ES6 defines a utility Number.isNaN(..) to provide an accurate non-buggy check for NaN values.
+
+```
+if (!Number.isNaN) {
+	Number.isNaN = function isNaN(x) {
+		return x !== x;
+	};
+}
+
+```
+
+- the 'if' statement guards against applying the polyfill definition in ES6 browsers
+- Not all new features a re fully pollyfillable. Sometimes most of the behavior can be filled but there are
+
+## Transpiling
+- There is no way to polyfill new syntax. Instead the better option is to use a tool to convert your newer code into older code. This is called Transpiling
+- Why use Transpiling?
+1. New syntax is designed to make your code more readable and maintainable. Older equivalents are generally more complicated than they need to be. You should prefer newer and cleaner syntax.
+2. If you transpile for older browsers, but serve newer syntax for newer ones you get to take advantage of newer browser performance.
+3. Using new syntax earlier allows it to be tested.
+
+### ES6 "default parameter values"
+```
+if (!Number.isNaN) {
+	Number.isNaN = function isNaN(x) {
+		return x !== x;
+	};
+}
+```
+### Pre-ES6 Engine
+```
+function foo() {
+	var a = arguments[0] !== (void 0) ? arguments[0] : 2;
+	console.log( a );
+}
+```
+
+- If you use a transpiler by default, you'll always be able to make that switch to newer syntax whenever you find it useful, rather than always waiting for years for today's browsers to phase out. i.e (Babel, Traceur)
+
+# Non-JavaScript
+- The most common non-JavaScript JavaScript is the DOM API
+```
+var el = document.getElementById("foo")
+
+```
+- The 'document' variable exists as a global variable when your code is running in your browser.
+- The 'getElementById'(..) method on 'document' looks like a normal JS function, but its an interface to a built-in DOM method.
