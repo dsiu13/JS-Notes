@@ -1,4 +1,4 @@
-# Into JavaScript
+# Ch 2: Into JavaScript
 - JavaScript has typed values, not typed variables.
 - String, Number, Boolean, Null and Undefined, Object, and symbol (ES6)
 - JavaScript provides a typeof Operators
