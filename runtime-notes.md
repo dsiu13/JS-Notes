@@ -63,3 +63,17 @@ function steps(n) {
 
 ## Exponential Time - 2^n
 - If you add a 'single' element to a collection, the processing power required doubles
+
+# Big 'O' Notation
+- O(n) -> Linear
+- O(1) -> Constant
+- O(n^2) -> Quadratic
+
+## Identifying Runtime Complexity
+- Iterating with a simple for loop through a single collection? -> Probably O(n)
+- Iterating through half a collection? -> Still O(n). There are no constants in runtime
+- Iterating through two 'different' collections with separate for loops? -> O(n + m)
+- Two nest for loops iterating over the same collection? -> O(n^2)
+- Two nested for loops iterating over different collections? -> 0(n * m)
+- Sorting? -> 0(n*log(n))
+- Searching a SORTED array? -> O(log(n))
