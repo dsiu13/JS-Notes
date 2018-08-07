@@ -77,3 +77,6 @@ function steps(n) {
 - Two nested for loops iterating over different collections? -> 0(n * m)
 - Sorting? -> 0(n*log(n))
 - Searching a SORTED array? -> O(log(n))
+
+## Space Complexity
+- How much more memory is required by doubling the problem set?
