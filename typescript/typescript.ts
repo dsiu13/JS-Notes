@@ -94,13 +94,15 @@ let fightRobotArmy = (robots: RobotsArmy): void  => {
 }
 
 // Classes
+// You can have private variables in TypeScript
+// By default vars are set to public
 class Animal {
   private sing: string = 'lalalalla'
   constructor(sound:string){
     this.sing = sound;
   }
 
-  greet() {
+  greet(): string {
     return 'Hello ${this.sing}'
   }
 
@@ -108,3 +110,12 @@ class Animal {
 
 let lion = new Animal("Rawr")
 lion.greet()
+
+// Union
+let confused: string | number = 'Hello'
+
+let x: number = 4
+x = "Hello"
+
+// TypeScript lets you use Declaration Files
+// DefinitelyTyped - type for 3rd party libraries
