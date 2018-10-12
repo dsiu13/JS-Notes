@@ -152,6 +152,8 @@ function handleFile (error, file) {
 // Pending Hasn't 'Fulfilled' or 'Rejected' yet
 // Settled - Has 'Fulfilled' or 'Rejected'
 
+// A promise constructor takes one argument, a callback with two parameters(resolve, reject).
+// We do something with the callback, then call resolve if it works or reject if it doesn't
 var promise = new Promise(function(resolve, reject) {
   // do a thing, possibly async, then…
 
@@ -161,4 +163,13 @@ var promise = new Promise(function(resolve, reject) {
   else {
     reject(Error("It broke"));
   }
+});
+
+// Using a Promise
+// 'then()' takes two arguments(callback success, and another failure case)
+// Both are optional, you can add a callback for the success or failure case only.
+promise.then(function(result) {
+  console.log(result); // "Stuff worked!"
+}, function(err) {
+  console.log(err); // Error: "It broke"
 });
