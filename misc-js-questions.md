@@ -52,16 +52,42 @@ then all its ancestors which are on the way to bottom to top.
 - it returns a function that is bound to the argument you pass to it when called.
 
 ## 6. Explain what the JS map function does. provide an example
-- enumerates through each element in an array. arr = [1,2,3]
+- goes through each element in an array. arr = [1,2,3]
 ```
 arr.map(x => x^2)
+
+output: 1,4,9
 
 ```
 
 ## 7. What is strict mode?
+- You can invoke strict mode via "**'use strict'**" before any other statements. You can also put it within a function or module
+- Tell the program to use a 'Restricted' version of JavaScript.
+1. Eliminates some JavaScript silent errors by changing them to throw errors.
+2. Fixes mistakes that make it difficult for JavaScript engines to perform optimizations: strict mode code can sometimes be made to run faster than identical code that's not strict mode.
+3. Prohibits some syntax likely to be defined in future versions of ECMAScript.
 
 ## 8. Whats the difference between a promise and a callback
+- A **promise** takes in one argument, a **callback** with two parameters(resolve, reject).
+```
+promise.then(function(result) {
+  console.log(result); // "Stuff worked!"
+}, function(err) {
+  console.log(err); // Error: "It broke"
+});
 
+```
+
+
+
+```
+getJSON('supplyData.json').then(function(supply) {
+  return getJSON(supply[0]);
+}).then(function(supply0) {
+  console.log("Got supply0!", supply0);
+})
+
+```
 
 # General/Presentation Layer Questions:
 
@@ -69,7 +95,7 @@ arr.map(x => x^2)
 
 ## Explain css specificity
 
-## How do you centre something horizontally
+## How do you center something horizontally
 
 ## Explain what media queries are
 
