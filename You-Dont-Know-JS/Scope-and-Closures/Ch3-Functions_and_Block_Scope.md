@@ -196,3 +196,104 @@ var a = 2;
 
 console.log( a ); // 2
 ```
+
+## Blocks as Scopes
+- Block Scoping: Declaring variables as close as possible, as local as possible, to where they will be used.
+- Block scope is a tool to extend the earlier "Principle of Least Privilege Exposure" from hiding information in functions to hiding information in blocks of our code.
+
+## Try/Catch
+- **err** only exists in the catch clause and will throw an error when you try to reference it elsewhere.
+```
+try {
+	undefined(); // illegal operation to force an exception!
+}
+catch (err) {
+	console.log( err ); // works!
+}
+
+console.log( err ); // ReferenceError: `err` not found
+
+```
+
+## Let
+- The **let** keyword attaches the variable declaration to the scope of whatever block (commonly a { .. } pair) it's contained in. In other words, let implicitly hijacks any block's scope for its variable declaration.
+- Using **let** to attach a variable to an existing block is somewhat implicit. It can confuse you if you're not paying close attention to which blocks have variables scoped to them.
+- Creating explicit blocks for block-scoping can address some of these concerns, making it more obvious where variables are attached and not. Explicit code is preferable over implicit or subtle code.
+- Declarations made with **let** will **not hoist** to the entire scope of the block they appear in. These declarations will not "exist" in the block until the declaration statement.
+```
+var foo = true;
+
+if (foo) {
+	let bar = foo * 2;
+	bar = something( bar );
+	console.log( bar );
+}
+
+console.log( bar ); // ReferenceError
+
+```
+
+
+## Garbage Collection
+- Declaring explicit blocks for variables to locally bind to is a powerful tool that you can add to your code toolbox.
+- someReallyBigData will persist after process() runs because the on.click has closure over the entire scope.
+```
+function process(data) {
+	// do something interesting
+}
+
+var someReallyBigData = { .. };
+
+process( someReallyBigData );
+
+var btn = document.getElementById( "my_button" );
+
+btn.addEventListener( "click", function click(evt){
+	console.log("button clicked");
+}, /*capturingPhase=*/false );
+
+```
+- We can use block scoping to address this:
+```
+function process(data) {
+	// do something interesting
+}
+
+// anything declared inside this block can go away after!
+{
+	let someReallyBigData = { .. };
+
+    process( someReallyBigData );
+
+}
+
+var btn = document.getElementById( "my_button" );
+
+btn.addEventListener( "click", function click(evt){
+	console.log("button clicked");
+}, /_capturingPhase=_/false );
+
+```
+
+## 'LET' loops
+- **let** in the for-loop header binds the i to the for-loop body. It will
+rebind it to each iteration of the loop making sure to re-assign at the end of the previous loop.
+- **let** declarations attach to arbitrary blocks rather than to the enclosing function's scope (or global), there can be gotchas where existing code has a hidden reliance on function-scoped var declarations, and replacing the var with let may require additional care when refactoring code.
+```
+for (let i=0; i<10; i++) {
+	console.log( i );
+}
+
+console.log( i ); // ReferenceError
+
+```
+
+
+## Const
+- **const** also creates a block-scoped variable, but whose value is fixed (constant). Any attempt to change that value at a later time results in an error.
+
+
+# Summary
+- Functions are the most common unit of scope in JavaScript. Variables and functions that are declared inside another function are essentially "hidden" from any of the enclosing "scopes", which is an intentional design principle of good software.
+- Functions are not the only unit of scope. **Block-scope** refers to the idea that variables and functions can belong to an arbitrary block (generally, any { .. } pair) of code, rather than only to the enclosing function.
+- The **let** keyword allows declarations of variables in any arbitrary block of code. if (..) { let a = 2; } will declare a variable a that essentially hijacks the scope of the if's { .. } block and attaches itself there.
