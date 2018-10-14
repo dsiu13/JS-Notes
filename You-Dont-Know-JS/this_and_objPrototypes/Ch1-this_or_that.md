@@ -1,7 +1,7 @@
 # 'This' or That?
 - **this** is a special identifier keyword that is automatically defined in the scope of every function.
 
-## Why 'This
+## Why 'This'
 - **this** mechanism provides a more elegant way of implicitly "passing along" an object reference, leading to cleaner API design and easier re-use.
 
 ```
@@ -91,6 +91,5 @@ setTimeout( function(){
 - One of the properties of this record is the **this** reference which will be used for the duration of that function's execution.
 
 # Summary
-- The **this** binding is a constant source of confusion for the JavaScript developer who does not take the time to learn how the mechanism actually works.
 - **this**, is neither a reference to the function itself, nor is it a reference to the function's lexical scope.
-- **this** is a binding that is made when a function is invoked, and what it references is determined entirely by the call-site where the function is called.
+- **this** is a binding that is made when a function is invoked, and what it references is determined entirely by the **call-site** where the function is called.
