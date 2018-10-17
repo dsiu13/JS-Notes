@@ -186,3 +186,108 @@ something = newMyClass(..)
 #### Why is new being able to override hard binding useful?
 - The primary reason for this behavior is to create a function (that can be used with new for constructing objects) that essentially ignores the this hard binding but which presets some or all of the function's arguments.
 - One of the capabilities of bind(..) is that any arguments passed after the first this binding argument are defaulted as standard arguments to the underlying function (technically called "partial application", which is a subset of "currying").
+
+## Binding Exceptions
+- The **this-binding** behavior can in some scenarios be surprising, where you intended a different binding but you end up with binding behavior from the default binding rule.
+
+## Ignored 'This'
+- If you pass **null** or **undefined** as a this binding parameter to call, apply, or bind, those values are effectively ignored, and instead the default binding rule applies to the invocation.
+- It's common to use **apply(..)** for spreading out arrays of values as parameters to a function call.
+- **bind(..)** can curry parameters (pre-set values)
+```
+function foo(a,b) {
+	console.log( "a:" + a + ", b:" + b );
+}
+
+// spreading out array as parameters
+foo.apply( null, [2, 3] ); // a:2, b:3
+
+// currying with `bind(..)`
+var bar = foo.bind( null, 2 );
+bar( 3 ); // a:2, b:3
+
+```
+- Both these utilities require a this binding for the first parameter. If the functions in question don't care about this, you need a placeholder value, like **null**
+- **'...' spread operator** which lets you syntactically "spread out" an array as parameters without needing apply(..).
+- "danger" in always using null when you don't care about the this binding. If you ever use that against a function call and that function does make a **this** reference, the default binding rule means it might reference or change the global object (window in the browser).
+
+## Safer 'this'
+- A "safer" practice is to pass a specifically set up object for **this** which is guaranteed not to be an object that can create problematic side effects in your program.
+- Not only functionally "safer", there's a sort of stylistic benefit to ø, in that it semantically conveys "I want the this to be empty" a little more clearly than null might
+
+
+## Indirection
+- Another thing to be aware of is you can (intentionally or not!) create "indirect references" to functions, and in those cases, when that function reference is invoked, the default binding rule also applies.
+```
+function foo() {
+	console.log( this.a );
+}
+
+var a = 2;
+var o = { a: 3, foo: foo };
+var p = { a: 4 };
+
+o.foo(); // 3
+(p.foo = o.foo)(); // 2
+
+```
+
+## Softening Binding
+```
+if (!Function.prototype.softBind) {
+	Function.prototype.softBind = function(obj) {
+		var fn = this,
+			curried = [].slice.call( arguments, 1 ),
+			bound = function bound() {
+				return fn.apply(
+					(!this ||
+						(typeof window !== "undefined" &&
+							this === window) ||
+						(typeof global !== "undefined" &&
+							this === global)
+					) ? obj : this,
+					curried.concat.apply( curried, arguments )
+				);
+			};
+		bound.prototype = Object.create( fn.prototype );
+		return bound;
+	};
+}
+```
+
+## Lexical 'this'
+- Arrow-functions are signified not by the function keyword, but by the => so called "fat arrow" operator.
+- Instead of using the four standard this rules, arrow-functions adopt the this binding from the enclosing (function or global) scope.
+- The arrow-function created in foo() lexically captures whatever foo()s **this** is at call-time.
+- The lexical binding of an arrow-function cannot be overridden (even with new)
+```
+function foo() {
+	// return an arrow function
+	return (a) => {
+		// `this` here is lexically adopted from `foo()`
+		console.log( this.a );
+	};
+}
+
+var obj1 = {
+	a: 2
+};
+
+var obj2 = {
+	a: 3
+};
+
+var bar = foo.call( obj1 );
+bar.call( obj2 ); // 2, not 3!
+```
+
+## Summary
+- Determining the this binding for an executing function requires finding the direct call-site of that function.
+
+### four rules can be applied to the call-site, in this order of precedence:
+1. Called with new? Use the newly constructed object.
+2. Called with call or apply (or bind)? Use the specified object.
+3. Called with a context object owning the call? Use that context object.
+4. Default: undefined in strict mode, global object otherwise.
+- Be careful of accidental/unintentional invoking of the default binding rule.
+- Instead of the four standard binding rules, ES6 arrow-functions use lexical scoping for this binding, which means they adopt the **this** binding (whatever it is) from its enclosing function call. They are essentially a syntactic replacement of **self = this** in pre-ES6 coding.
