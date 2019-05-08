@@ -46,3 +46,4 @@ strObject instanceof String;					// true
 Object.prototype.toString.call( strObject );	// [object String]
 
 ```
+- 
