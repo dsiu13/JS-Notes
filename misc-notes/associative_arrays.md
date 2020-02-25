@@ -29,3 +29,16 @@ for (var i = 0; i<x.length; i++) {
 };
 
 ```
+
+#Hash Tables
+- Hash tables are a way to implement the map data structure
+- The average time for lookups are not tied to the number of elements
+- O(n) for Space. 0(1) for Search, Insert, and Delete
+- A key is run through a hash function. The function maps strings to numbers. The number corresponds to numbers in an array.
+- A hash function needs to consistent. It should always give the same number. It should map diff words to diff numbers
+- If two words get mapped to the same number this is a collision.
+- You can store both values in the same number to avoid them. Then iterate through it to find the key
+```
+
+
+```
